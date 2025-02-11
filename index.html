@@ -1,210 +1,70 @@
-let todos = [];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="to-do-app"  >
+        <div class="container" id ="main-container">
+            <div class="row">
+                <header class="text-center">
+                    <h1>To Do App</h1>
+                </header>
+            </div>
+            <div class="row">
+                <div class="input-section d-flex flex-row justify-content-center">
+                    <div class="input-todos">
+                        <input type="text" id="to-do-input-bar"class="form-control" placeholder="Enter Your Tasks">
+                    </div>
+                    <div class="save-todos btn btn-primary disabled" id="save-todos" >
+                        Save
+                    </div>
+                    <div class="get-todos btn btn-warning" id="get-todos">
+                        Get Pending Tasks
+                    </div>   
+                    <!-- <div class="get-all-todo btn btn-secondary mb-2 mb-md-0">All To Do</div>            -->
+                 </div>
+            </div>
+            <!-- List Of All TO DOS -->
+             <div class="to-do-data" id ="to-do-data">
+                <div class="row">
+                    <div class="list-todos-header d-flex flex-row justify-content-between">
+                        <div class="to-do-No">No.</div>
+                        <div class="to-do-details">To Do Item</div>
+                        <div class="to-do-status">Status</div>
+                        <div class="to-do-actions">Actions </div>
+                    </div>
+                </div>
+                <hr>
 
-let todoDataList = document.getElementById("todo-dataList");
-let saveButton = document.getElementById("save-todos");
-let todoInputBar = document.getElementById("to-do-input-bar");
-let getPendingTodosbtn = document.getElementById("get-todos");
+                <div id="todo-dataList">
+                    
+                </div>
+                <!-- Actual TO DOs -->
+                <!-- <div class="row">
+                    <div class="list-todos-item d-flex flex-row justify-content-between align-items-center">
+                        <div class="to-do-No">1.</div>
+                        <div class="to-do-details">Complete DBMS Syllabus</div>
+                        <div class="to-do-status">In Progress</div>
+                        <div class="to-do-actions d-flex justify-content-start gap-2">
+                            <button class = "btn btn-danger">Delete</button>
+                            <button class="btn btn-success">Finished</button>
+                        </div>
+                    </div>
+                    <hr>
+                </div>           -->
 
-getPendingTodosbtn.addEventListener("click",() =>{
-    todos= todos.filter((x) => x.status != "Finished")
-    reRenderToDO();
-})
+             </div>
+           
 
-todoInputBar.addEventListener("keyup", function toggleSaveButton(event){
-    let todotext = todoInputBar.value.trim();
-    if(todotext.length == 0) {
-        saveButton.classList.add("disabled")
-    } 
-    else {
-        saveButton.classList.remove("disabled");
-    }
+    </div>    
 
-    // Save Todo on Enter Key Press
-    if (event.key === "Enter") {
-        getTextAndAddtodo();
-    }
-})
-
-
-function getTextAndAddtodo (){
-    let todotext = todoInputBar.value.trim();
-    if(todotext.length == 0) return;
-
-    let todo = {text: todotext,status:"In Progress", finishButtonText:"Finished"};
-    todos.push(todo);
-    addToDo(todo,todos.length);
-    
-    todoInputBar.value ='';
-}
-
-saveButton.addEventListener("click" ,getTextAndAddtodo)
-
-function reRenderToDO () {
-    todoDataList.innerHTML = '';
-    todos.forEach((element,idx) => {
-        addToDo(element,idx+1);
-    });
-}
-
-function removeToDO (event){
-    // event.target.parentElement.parentElement.parentElement.remove();
-    let deleteButtonPressed = event.target;
-    let indextoBERemoved = Number(deleteButtonPressed.getAttribute("todo-idx"));
-    todos.splice(indextoBERemoved,1);
-    reRenderToDO();
-
-};
-
-
-function finishToDo(event) {
-    let finishedButtonPressed = event.target;
-    let indextoBEFinished = Number(finishedButtonPressed.getAttribute("todo-idx"));
-
-    //toggle Functionality
-    if( todos[indextoBEFinished].status == "Finished"){
-        todos[indextoBEFinished].status = "In Progress";
-        todos[indextoBEFinished].finishButtonText = "Finished";
-    }
-    else{
-        todos[indextoBEFinished].status = "Finished";
-        todos[indextoBEFinished].finishButtonText = "undo";
-    }
-
-    todos.sort((a,b) => {
-        if(a.status == "Finished"){
-            return 1;
-        }
-        return -1;
-    })
-    reRenderToDO();
-    
-}
-
-function editTodo (event){
-    let editButtonPressed = event.target;
-    let indextoBEEdited = Number(editButtonPressed.getAttribute("todo-idx"));
-
-     // Prevent editing if status is "Finished"
-     if (todos[indextoBEEdited].status === "Finished") {
-        alert("You cannot edit a finished task!");
-        return;
-    }
-
-    let detailDiv = document.querySelector(`div[todo-idx= "${indextoBEEdited}"]`);
-    let input = document.querySelector(`input[todo-idx= "${indextoBEEdited}"]`);
-    detailDiv.style.display = "none";
-    input.type="text";
-    input.value = detailDiv.textContent;
-  }
-
-function saveEditiedTodo(event) {
-    let input = event.target;
-    let indextoBEEdited = Number(input.getAttribute("todo-idx"));
-    let detailDiv = document.querySelector(`div[todo-idx= "${indextoBEEdited}"]`);
-
-    if(event.keyCode == 13){
-        detailDiv.textContent = input.value;
-        detailDiv.style.display = "block";
-        input.value = "";
-        input.type = "hidden";
-    }
-}
-
-
-function addToDo(todo,todoCount) {
-
-    //Creating all the elments
-    let rowDiv = document.createElement("div");
-    let toDoItem = document.createElement("div");
-    let todoNo = document.createElement("div");
-    let todoDetail = document.createElement("div");
-    let todoStatus = document.createElement("div");
-    let todoActions = document.createElement("div");
-    let deleteBtn = document.createElement("button");
-    let finishBtn = document.createElement("button");
-    let editBtn = document.createElement("button");
-    let hiddenInput = document.createElement("input");
-    let hr = document.createElement("hr");
-    
- 
-    //Adding classes
-     rowDiv.classList.add("row");
-     toDoItem.classList.add("list-todos-item","d-flex","flex-row","justify-content-between", "align-items-center");
-     todoNo.classList.add("to-do-No");
-     todoDetail.classList.add("to-do-details");
-     todoStatus.classList.add("to-do-status");
-     todoActions.classList.add("to-do-actions","d-flex","justify-content-start","gap-2");
-     finishBtn.classList.add("btn","btn-success","finish-todo");
-     deleteBtn.classList.add("btn","btn-danger"),"delete-todo";
-     editBtn.classList.add("btn","btn-warning","edit-todo");
-     hiddenInput.classList.add("form-control","to-do-details");
-
-     //Adding Attributes
-     finishBtn.setAttribute("todo-idx",todoCount-1);
-     deleteBtn.setAttribute("todo-idx",todoCount-1);
-     editBtn.setAttribute("todo-idx",todoCount-1);
-     todoDetail.setAttribute("todo-idx",todoCount-1);
-     hiddenInput.setAttribute("todo-idx",todoCount-1);
-     hiddenInput.type = "hidden";
-
-
-    //Adding click  listeners
-     finishBtn.onclick = finishToDo;
-     deleteBtn.onclick = removeToDO;
-     editBtn.onclick = editTodo;
-     hiddenInput.addEventListener("keypress",saveEditiedTodo);
-
-
-
-     
-    //adding content to the elements
-    todoNo.textContent = `${todoCount}.`;
-    todoStatus.textContent = todo.status;
-    deleteBtn.textContent = "Delete";
-    finishBtn.textContent = todo.finishButtonText;
-    editBtn.textContent = "Edit";
-    todoDetail.textContent = todo.text; //sets the to do text sent fromthe input element
-
-
-    //Creating div on dom
-    todoActions.appendChild(deleteBtn);
-    todoActions.appendChild(finishBtn);
-    todoActions.appendChild(editBtn);
-    toDoItem.appendChild(todoNo);
-    toDoItem.appendChild(todoDetail);
-    toDoItem.appendChild(hiddenInput);
-    toDoItem.appendChild(todoStatus);
-    toDoItem.appendChild(todoActions);
-
-    rowDiv.appendChild(toDoItem);
-    rowDiv.appendChild(hr);
-
-    todoDataList.appendChild(rowDiv);
-}
- 
-/* # For Reference
-let savetodoButton = document.getElementById('save-todos');
-savetodoButton.addEventListener("click",() => {
-    console.log("I am Working ");
-})
-
-savetodoButton.addEventListener("mouseover",handler)//just pass function don't call in case of callback
-savetodoButton.addEventListener("mouseout",() => {
-    console.log("out")
-})//just pass function don't call in case of callback
-
-
-function handler () {
-    console.log("clickedddd")
-}
-
-let getToDoButton = document.getElementById("get-todo");
-
-getToDoButton.onclick = () => {
-    console.log("Get to do button clicked");
-}
-
-function saveBtn () {
-    console.log("mousing moving out")
-}
-// */
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>
