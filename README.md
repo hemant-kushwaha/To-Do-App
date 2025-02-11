@@ -2,6 +2,10 @@
 
 A simple, interactive **To-Do List** application that allows users to add, edit, delete, and manage their tasks efficiently.  
 
+## 📸 Screenshots  
+![Homepage](https://github.com/hemant-kushwaha/To-Do-App/blob/main/Homepage.png)
+---
+
 ## 🚀 Features  
 
 ### ✅ Add a New To-Do  
@@ -29,10 +33,6 @@ A simple, interactive **To-Do List** application that allows users to add, edit,
 - The **Save** button is disabled when the input field is empty.  
 - Tasks are automatically **sorted**, with unfinished tasks at the top.  
 
----
-
-## 📸 Screenshots  
-![Homepage](https://github.com/hemant-kushwaha/To-Do-App/blob/main/Homepage.png)
 ---
 
 ## 🛠️ Technologies Used  
