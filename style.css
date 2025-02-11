@@ -1,0 +1,81 @@
+html {
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    /* background-image: url('https://storage.googleapis.com/a1aa/image/3MDCWrsqTQ58QqOptPRX_cUp1qfgpVwmaIIUfmk7nTQ.jpg'); */
+}
+
+body{
+        /* background-image: url(''); */
+        background: rgb(2,0,36);
+        background: linear-gradient(to bottom, #68EACC 0%, #497BE8 100%); 
+        /* background-size: cover;       */
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+       
+
+}
+
+*,*::after,*::before{
+    box-sizing: inherit;
+}
+
+:root{
+    --light-grey:#7b8586;
+}
+
+.container{
+    background-color: #F7F7F7;
+    max-width: 1200px;
+    margin: 4rem auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    padding : 20px;
+    border-radius: 7px; /* Apply rounded corners */
+    
+}
+
+.input-section{
+    gap:1.5rem;
+    margin-top: 1rem
+}
+.input-todos{
+    flex-basis: 55%;
+}
+
+/* Immediate DIV */
+.list-todos-header > div{
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.to-do-No{
+    flex-basis: 5%;
+    color:black
+}
+
+.to-do-details{
+    flex-basis: 60%;
+}
+.to-do-status {
+    flex-basis: 12%;
+    
+}
+.to-do-actions{
+    flex-basis: 15%;
+}
+
+.to-do-actions button{
+    padding-top: 6px;
+    padding-bottom: 10px;
+}
+
+.list-todos-item{
+    font-size: 1.3rem;
+    color: var(--light-grey);
+    margin-bottom: 1rem;
+}
+
+#to-do-data {
+margin-top: 25px;
+}
