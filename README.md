@@ -32,7 +32,7 @@ A simple, interactive **To-Do List** application that allows users to add, edit,
 ---
 
 ## 📸 Screenshots  
-https://github.com/hemant-kushwaha/To-Do-App/blob/main/Homepage.png
+![Homepage](https://github.com/hemant-kushwaha/To-Do-App/blob/main/Homepage.png)
 ---
 
 ## 🛠️ Technologies Used  
